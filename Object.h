@@ -12,9 +12,9 @@ protected:
     int yPos;
 public:
     Object* nextHoriz;
-    Object* nextVert;
-
     Object* prevHoriz;
+
+    Object* nextVert;
     Object* prevVert;
 
     Object* above;

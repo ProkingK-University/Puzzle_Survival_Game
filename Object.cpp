@@ -5,9 +5,9 @@ Object::Object(int x, int y) : xPos(x), yPos(y)
     icon = '?';
 
     nextHoriz = NULL;
-    nextVert = NULL;
-
     prevHoriz = NULL;
+
+    nextVert = NULL;
     prevVert = NULL;
 
     above = NULL;
