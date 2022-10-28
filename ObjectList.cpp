@@ -1,5 +1,7 @@
 #include "ObjectList.h"
 
+#include <iostream>
+
 ObjectList::ObjectList(bool dim) : dimension(dim)
 {
     head = NULL;
@@ -15,32 +17,35 @@ void ObjectList::add(Object* obj)
 {
     if (!head)
     {
+        std::cout<< "Zero" <<std::endl;
         head = obj;
     }
     else
     {
         Object* nodePtr = head;
+        Object* prevPtr = NULL;
 
-        while (nodePtr && nodePtr->getCoord(dimension) <= obj->getCoord(dimension))
+        while (nodePtr && nodePtr->getCoord(dimension) < obj->getCoord(dimension))
         {
+            prevPtr = nodePtr;
             nodePtr = nodePtr->getNext(dimension);
         }
 
-        if (!nodePtr->getPrev(dimension))
+        if (!nodePtr)
         {
-            obj->setNext(nodePtr, dimension);
-            nodePtr->setPrev(obj, dimension);
-            head = obj;
+            prevPtr->setNext(obj, dimension);
+            obj->setPrev(prevPtr, dimension);
         }
-        else if(!nodePtr->getNext(dimension))
+        else if (!prevPtr)
         {
-            nodePtr->setNext(obj, dimension);
-            obj->setPrev(nodePtr, dimension);
+            obj->setNext(head, dimension);
+            head->setPrev(obj, dimension);
+            head = obj;
         }
         else
         {
-            nodePtr->getPrev(dimension)->setNext(obj, dimension);
-            obj->setPrev(nodePtr->getPrev(dimension), dimension);
+            prevPtr->setNext(obj, dimension);
+            obj->setPrev(prevPtr, dimension);
             obj->setNext(nodePtr, dimension);
             nodePtr->setPrev(obj, dimension);
         }
@@ -51,9 +56,12 @@ Object* ObjectList::getHead() {return head;}
 
 Object* ObjectList::iterate()
 {
-    current = current->getNext(dimension);
+    Object* c = current;
 
-    return current;
+    if (current)
+        current = current->getNext(dimension);
+    
+    return c;
 }
 
 std::string ObjectList::print()
@@ -77,41 +85,61 @@ std::string ObjectList::debug()
 
     if (head)
     {
-        Object* nodePtr = head;
-
-        char x;
-        char y;
-
+        std::string x;
+        std::string y;
+        std::string icon;
         std::string top = "Y";
-        std::string icon = ""+nodePtr->getIcon();
+        std::stringstream ss;
 
         s = "Forward\n";
 
+        Object* nodePtr = head;
+
         while (nodePtr)
         {
-            x = (int) nodePtr->getCoord(false);
-            y = (int) nodePtr->getCoord(true);
-            
+            ss << nodePtr->getCoord(false);
+            ss >> x;
+            ss.clear();
+
+            ss << nodePtr->getCoord(true);
+            ss >> y;
+            ss.clear();
+
+            ss << nodePtr->getIcon();
+            ss >> icon;
+            ss.clear();
+
             if (nodePtr->above)
                 top = 'N';
             
-            s += icon + "at (" + x + ',' + y + ") Top: " + top + '\n';
+            s +=  "<" + icon + ">" + "at (" + x + ',' + y + ") Top: " + top + '\n';
 
-            if (nodePtr->getNext(dimension))
+            if (!nodePtr->getNext(dimension))
+                break;
+            else
                 nodePtr = nodePtr->getNext(dimension);
         }
         
         s += "Back\n";
-        
+
         while (nodePtr)
         {
-            x = (int) nodePtr->getCoord(false);
-            y = (int) nodePtr->getCoord(true);
+            ss << nodePtr->getCoord(false);
+            ss >> x;
+            ss.clear();
+
+            ss << nodePtr->getCoord(true);
+            ss >> y;
+            ss.clear();
+
+            ss << nodePtr->getIcon();
+            ss >> icon;
+            ss.clear();
             
             if (nodePtr->above)
                 top = 'N';
             
-            s += icon + "at (" + x + ',' + y + ") Top: " + top + '\n';
+            s += "<" + icon + ">" + "at (" + x + ',' + y + ") Top: " + top + '\n';
 
             nodePtr = nodePtr->getPrev(dimension);
         }
