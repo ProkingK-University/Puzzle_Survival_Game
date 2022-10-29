@@ -48,16 +48,22 @@ Object* Object::getPrev(bool dimension)
 
 void Object::setNext(Object* obj, bool dim)
 {
-    if (dim)
-        nextVert = obj;
-    else
-        nextHoriz = obj;
+    if (obj)
+    {
+        if (dim)
+            nextVert = obj;
+        else
+            nextHoriz = obj;
+    }
 }
 
 void Object::setPrev(Object* obj, bool dim)
 {
+    if (obj)
+    {
     if (dim)
         prevVert = obj;
     else
         prevHoriz = obj;
+    }
 }

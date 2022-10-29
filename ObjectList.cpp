@@ -15,39 +15,41 @@ void ObjectList::reset()
 
 void ObjectList::add(Object* obj)
 {
-    if (!head)
+    if (obj)
     {
-        std::cout<< "Zero" <<std::endl;
-        head = obj;
-    }
-    else
-    {
-        Object* nodePtr = head;
-        Object* prevPtr = NULL;
-
-        while (nodePtr && nodePtr->getCoord(dimension) < obj->getCoord(dimension))
+        if (!head)
         {
-            prevPtr = nodePtr;
-            nodePtr = nodePtr->getNext(dimension);
-        }
-
-        if (!nodePtr)
-        {
-            prevPtr->setNext(obj, dimension);
-            obj->setPrev(prevPtr, dimension);
-        }
-        else if (!prevPtr)
-        {
-            obj->setNext(head, dimension);
-            head->setPrev(obj, dimension);
             head = obj;
         }
         else
         {
-            prevPtr->setNext(obj, dimension);
-            obj->setPrev(prevPtr, dimension);
-            obj->setNext(nodePtr, dimension);
-            nodePtr->setPrev(obj, dimension);
+            Object* nodePtr = head;
+            Object* prevPtr = NULL;
+
+            while (nodePtr && nodePtr->getCoord(dimension) < obj->getCoord(dimension))
+            {
+                prevPtr = nodePtr;
+                nodePtr = nodePtr->getNext(dimension);
+            }
+
+            if (!nodePtr)
+            {
+                prevPtr->setNext(obj, dimension);
+                obj->setPrev(prevPtr, dimension);
+            }
+            else if (!prevPtr)
+            {
+                obj->setNext(head, dimension);
+                head->setPrev(obj, dimension);
+                head = obj;
+            }
+            else
+            {
+                prevPtr->setNext(obj, dimension);
+                obj->setPrev(prevPtr, dimension);
+                obj->setNext(nodePtr, dimension);
+                nodePtr->setPrev(obj, dimension);
+            }
         }
     }
 }
@@ -66,7 +68,7 @@ Object* ObjectList::iterate()
 
 std::string ObjectList::print()
 {
-    std::string s;
+    std::string s = "";
     Object* nodePtr = head;
 
     while (nodePtr)

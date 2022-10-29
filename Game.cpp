@@ -8,32 +8,33 @@ Game::Game(int w, int h, std::string chars)
     map = new Map(w, h);
 
     for (int i = 0; i < h; i++)
-    {
+    {        
         for (int j = 0; j < w; j++)
         {
             Object* obj;
 
             if (chars[k] == '.' || chars[k] == '#' || chars[k] == '&' || chars[k] == '?')
             {
+                
                 if (chars[k] == '.')
                 {
-                    obj = new Floor(i, j);
+                    obj = new Floor(j, i);
                 }
                 else if(chars[k] == '#')
                 {
-                    obj = new Wall(i, j);
+                    obj = new Wall(j, i);
                 }
-                else if('&')
+                else if(chars[k] == '&')
                 {
-                    obj = new Floor(i, j);
-                    player = new Player(i, j);
+                    obj = new Floor(j, i);
+                    player = new Player(j, i);
 
                     obj->above = player;
                     player->below = obj;
                 }
-                else if('?')
+                else if(chars[k] == '?')
                 {
-                    obj = new Object(i, j);
+                    obj = new Object(j, i);
                 }
 
                 map->add(obj);
@@ -47,7 +48,7 @@ Game::Game(int w, int h, std::string chars)
 std::string Game::display(){return map->print();}
 
 void Game::update(char input)
-{
+{    
     if (player)
     {
         if (input == '1')

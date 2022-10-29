@@ -1,4 +1,5 @@
 #include "Map.h"
+#include <iostream>
 
 Map::Map(int w, int h) : width(w), height(h)
 {
@@ -7,33 +8,31 @@ Map::Map(int w, int h) : width(w), height(h)
 
     for (int i = 0; i < height; i++)
     {
-        rows[i] = NULL;
+        rows[i] = new ObjectList(false);
     }
 
     for (int i = 0; i < width; i++)
     {
-        columns[i] = NULL;
+        columns[i] = new ObjectList(true);
     }
 }
 
 void Map::add(Object* obj)
 {
-    rows[obj->getCoord(true)]->add(obj);
-    columns[obj->getCoord(false)]->add(obj);
+    if (obj)
+    {
+        rows[obj->getCoord(true)]->add(obj);
+        columns[obj->getCoord(false)]->add(obj);
+    }
 }
 
 std::string Map::print()
 {
-    std::string s;
+    std::string s = "";
 
     for (int i = 0; i < height; i++)
     {
-        s += rows[i]->print();
-    }
-
-    for (int j = 0; j < width; j++)
-    {
-        s += columns[j]->print();
+        s += rows[i]->print() + '\n';
     }
 
     return s;

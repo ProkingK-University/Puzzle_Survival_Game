@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include "Game.h"
 
 using namespace std;
@@ -82,7 +82,7 @@ int main()
 	"###############^#";
 */
 
-	Game* game = new Game(w, h, array);
+	/*Game* game = new Game(w, h, array);
 
 
 	cout<<game->display()<<endl;
@@ -112,7 +112,7 @@ int main()
 	cout<<endl<<mess<<endl;
 	
 
-}
+}*/
 //Expected output for:
 //runTest()
 /*

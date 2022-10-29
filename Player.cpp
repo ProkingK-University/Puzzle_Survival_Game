@@ -6,31 +6,30 @@ void Player::move(int x, int y)
 {
     if ((x==-1 || x==0 || x==1) && (y==-1 || y==0 || y==1))
     {
-        Object* xFloor = below;
-        Object* yFloor = below;
+        Object* oldPos = below;
+        Object* newPos = oldPos;
 
-        xFloor->above = NULL;
-        yFloor->above = NULL;
-
-        while (xFloor->below)
-            xFloor = xFloor->below;
-
-        if (x == 1)
-            xFloor = xFloor->nextHoriz;
-        else if (x == -1)
-            xFloor = xFloor->prevHoriz;
-
-        if (y == 1)
-            yFloor = yFloor->nextVert;
-        else if (y == -1)
-            yFloor = yFloor->prevVert;
+        while (oldPos->below)
+            oldPos = oldPos->below;
         
-        while (yFloor->above)
-            yFloor = yFloor->above;
+        if (newPos)
+        {
+            if (x == 1)
+                newPos = newPos->nextHoriz;
+            else if (x == -1)
+                newPos = newPos->prevHoriz;
 
-        yFloor->above = this;
-        
-        xPos += x;
-        yPos += y;
+            if (y == 1)
+                newPos = newPos->nextVert;
+            else if (y == -1)
+                newPos = newPos->prevVert;
+            
+            oldPos->above = NULL;
+            newPos->above = this;
+            this->below = newPos;
+            
+            xPos += x;
+            yPos += y;
+        }
     }
 }
