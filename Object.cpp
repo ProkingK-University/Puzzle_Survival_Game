@@ -4,6 +4,9 @@ Object::Object(int x, int y) : xPos(x), yPos(y)
 {
     icon = '?';
 
+    lit = true;
+    solid = false;
+
     nextHoriz = NULL;
     prevHoriz = NULL;
 
@@ -16,7 +19,9 @@ Object::Object(int x, int y) : xPos(x), yPos(y)
 
 char Object::getIcon()
 {
-    if (above)
+    if (!lit)
+        return ' ';
+    else if (above)
         return above->getIcon();
     else
         return icon;
@@ -46,6 +51,21 @@ Object* Object::getPrev(bool dimension)
         return prevHoriz;
 }
 
+void Object::update()
+{
+    lit = false;
+}
+
+bool Object::isSolid()
+{
+    if (above && above->isSolid())
+        return true;
+    else
+        return solid;
+}
+
+void Object::interact() {}
+
 void Object::setNext(Object* obj, bool dim)
 {
     if (obj)
@@ -65,5 +85,44 @@ void Object::setPrev(Object* obj, bool dim)
         prevVert = obj;
     else
         prevHoriz = obj;
+    }
+}
+
+void Object::updateLight(char direction, int intensity)
+{
+    if (intensity == 1 || solid)
+    {
+        lit = true;
+    }
+    else
+    {
+        lit = true;
+
+        if (direction == 'u')
+        {
+            prevHoriz->updateLight(direction, 1);
+            nextHoriz->updateLight(direction, 1);
+            prevVert->updateLight(direction, intensity-1);
+        }
+        else if (direction == 'd')
+        {
+            prevHoriz->updateLight(direction, 1);
+            nextHoriz->updateLight(direction, 1);
+            nextVert->updateLight(direction, intensity-1);
+
+        }
+        else if (direction == 'l')
+        {
+            prevVert->updateLight(direction, 1);
+            nextVert->updateLight(direction, 1);
+            prevHoriz->updateLight(direction, intensity-1);
+
+        }
+        else if (direction == 'r')
+        {
+            prevVert->updateLight(direction, 1);
+            nextVert->updateLight(direction, 1);
+            prevHoriz->updateLight(direction, intensity-1);
+        }
     }
 }

@@ -38,6 +38,57 @@ std::string Map::print()
     return s;
 }
 
+Object* Map::getAt(int x, int y)
+{
+    Object* nodePtr = rows[y]->getHead();
+
+    for (int i = 0; i < x; i++)
+    {
+        if (nodePtr)
+            nodePtr = nodePtr->getNext(false);
+    }
+
+    if(nodePtr == rows[y]->getHead() && x != 0)
+        return NULL;
+    else
+        return nodePtr;
+}
+
+void Map::addLight(Object* light)
+{
+    if (light)
+    {
+        lights->add(light);
+    }
+}
+
+void Map::resetEnvironment()
+{
+    for (int i = 0; i < height; i++)
+    {
+        Object* nodePtr = rows[i]->getHead();
+        
+        while (nodePtr)
+        {
+            nodePtr->update();
+            
+            nodePtr = nodePtr->nextHoriz;
+        }
+    }
+}
+
+void Map::updateEnvironment()
+{
+    Object* nodePtr = lights->getHead();
+
+    while (nodePtr)
+    {
+        nodePtr->update();
+
+        nodePtr = nodePtr->nextHoriz;
+    }
+}
+
 Map::~Map()
 {
     Object* head = NULL;

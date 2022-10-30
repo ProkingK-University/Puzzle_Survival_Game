@@ -10,13 +10,20 @@ private:
     int width;
     int height;
 
+    ObjectList* lights;
+
     ObjectList** rows;
     ObjectList** columns;
 public:
     Map(int w, int h);
 
-    void add(Object* obj);
     std::string print();
+    Object* getAt(int x, int y);
+
+    void add(Object* obj);
+    void addLight(Object* l);
+    void resetEnvironment();
+    void updateEnvironment();
     
     ~Map();
 };

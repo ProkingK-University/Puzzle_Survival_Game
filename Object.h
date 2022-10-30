@@ -10,6 +10,9 @@ protected:
 
     int xPos;
     int yPos;
+
+    bool lit;
+    bool solid;
 public:
     Object* nextHoriz;
     Object* prevHoriz;
@@ -24,13 +27,18 @@ public:
 
     char getIcon();
 
+    bool isSolid();
+
     int getCoord(bool dimension);
 
     Object* getNext(bool dimension);
     Object* getPrev(bool dimension);
 
+    virtual void update();
+    virtual void interact();
     void setNext(Object* obj, bool dim);
     void setPrev(Object* obj, bool dim);
+    virtual void updateLight(char direction, int intensity);
 };
 
 #endif
