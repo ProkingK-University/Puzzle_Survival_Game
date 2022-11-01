@@ -1,14 +1,16 @@
 #include "Lamp.h"
 
+#include <iostream>
+
 Lamp::Lamp(int x, int y) : Object(x, y) 
 {
     icon = '^';
 }
     
 void Lamp::update()
-{
-    updateLight('u', 20);
-    updateLight('d', 20);
-    updateLight('l', 20);
-    updateLight('r', 20);
+{    
+    below->updateLight('u', 20);
+    below->updateLight('d', 20);
+    below->updateLight('l', 20);
+    below->updateLight('r', 20);
 }

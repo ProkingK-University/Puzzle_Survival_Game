@@ -7,12 +7,12 @@ Door::Door(int x, int y, bool open) : Object(x, y)
     if (open)
     {
         solid = false;
-        icon = '+';
+        icon = '=';
     }
     else
     {
         solid = true;
-        icon = '=';
+        icon = '+';
     }
 }
 
@@ -20,14 +20,18 @@ void Door::interact()
 {
     if (open)
     {
+        icon = '+';
         open = false;
+        solid = true;
 
         std::string s = "You closed the door";
         throw s;
     }
     else
     {
+        icon = '=';
         open = true;
+        solid = false;
 
         std::string s = "You opened the door";
         throw s;

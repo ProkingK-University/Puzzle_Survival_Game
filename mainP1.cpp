@@ -3,7 +3,7 @@
 //If a class does not ask for a destructor, DO NOT MAKE ONE!
 //Check SPELLING!
 
-#include <iostream>
+/*#include <iostream>
 #include "Game.h"
 
 using namespace std;
@@ -62,7 +62,7 @@ void test()
 //appear at the top. So, the player should
 //always be visible, even on walls for Part 1
 
-	const int w = 5;
+	/*const int w = 5;
 	const int h = 5;
 	string array =
 	"#####"
@@ -123,12 +123,12 @@ int main()
 
 	std::cout<< list.print() <<std::endl;
 
-	std::cout<< list.debug() <<std::endl;*/
+	std::cout<< list.debug() <<std::endl;
 
 	//basicTest();
 
 	test();
-}
+}*/
 
 //Expected output, Part 1 (without character)
 /*

@@ -1,4 +1,4 @@
-/*#include <iostream>
+#include <iostream>
 #include "Game.h"
 
 using namespace std;
@@ -24,11 +24,11 @@ void runTest()
 
 int main()
 {
-	runTest();
+	//runTest();
 
 //Basic Map (large room)
 
-	const int w = 30;
+	/*const int w = 30;
 	const int h = 12;
 	string array =
 	"##############################"
@@ -42,11 +42,11 @@ int main()
 	"#..............^.............#"
 	"#............................#"
 	"#............................#"
-	"##############################";
+	"##############################";*/
 
 //Test walls
-/*
-	const int w = 19;
+
+	/*const int w = 19;
 	const int h = 7;
 	string array =
 	"###^###############"
@@ -55,22 +55,22 @@ int main()
 	"#.....#.....#.....#"
 	"#.....###.###.....#"
 	"#.......#.#.......#"
-	"#########^#########";
-*/
+	"#########^#########";*/
+
 
 //3 lights and a door
-/*
-	const int w = 19;
+
+	/*const int w = 19;
 	const int h = 4;
 	string array =
 	"###################"
 	"^&......+.........@"
 	"^.......#.........#"
-	"#############^#####";
-*/
+	"#############^#####";*/
+
 
 //More interesting map for lighting
-/*
+
 	const int w = 17;
 	const int h = 6;
 	string array =
@@ -80,9 +80,11 @@ int main()
 	"^....#..#..#....@"
 	"^....#..+..^..#+#"
 	"###############^#";
-*/
 
-	/*Game* game = new Game(w, h, array);
+
+	cout<< "Started" <<endl;
+
+	Game* game = new Game(w, h, array);
 
 
 	cout<<game->display()<<endl;
@@ -112,7 +114,7 @@ int main()
 	cout<<endl<<mess<<endl;
 	
 
-}*/
+}
 //Expected output for:
 //runTest()
 /*

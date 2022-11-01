@@ -44,7 +44,8 @@ Game::Game(int w, int h, std::string chars)
                 }
                 else if(chars[k] == '@')
                 {
-                    obj = new Exit(j, i);
+                    exit = new Exit(j, i);
+                    obj = exit;
                 }
                 else if(chars[k] == '^')
                 {
@@ -58,11 +59,11 @@ Game::Game(int w, int h, std::string chars)
                 }
                 else if(chars[k] == '=')
                 {
-                    obj = new Door(j, i, false);
+                    obj = new Door(j, i, true);
                 }
                 else if(chars[k] == '+')
                 {
-                    obj = new Door(j, i, true);
+                    obj = new Door(j, i, false);
                 }
 
                 map->add(obj);
@@ -72,8 +73,8 @@ Game::Game(int w, int h, std::string chars)
         }
     }
 
-    //map->resetEnvironment();
-    //map->updateEnvironment();
+    map->resetEnvironment();
+    map->updateEnvironment();
 }
 
 std::string Game::display()
@@ -87,14 +88,10 @@ std::string Game::display()
 }
 
 void Game::update(char input)
-{    
-    Message* m = NULL;
-    
+{        
     if (!player)
     {
-        m = new Message("Missing player");
-
-        messages->addMessage(m);
+        messages->addMessage(new Message("Missing player"));
 
         map->updateEnvironment();
     }
@@ -103,43 +100,68 @@ void Game::update(char input)
         int x = 0;
         int y = 0;
         
-        Player* check = player;
+        Object* check = player->below;
 
+        while (check->below)
+        {
+            check = check->below;
+        }
+        
         if (input == '1')
         {
             x = -1;
             y = 1;
+
+            check = check->prevHoriz;
+            check = check->nextVert;
         }
         else if (input == '2')
         {
             y = 1;
+
+            check = check->nextVert;
         }
         else if (input == '3')
         {
             x = 1;
             y = 1;
+
+            check = check->nextHoriz;
+            check = check->nextVert;
         }
         else if (input == '4')
         {
             x = -1;
+
+            check = check->prevHoriz;
         }
         else if (input == '6')
         {
             x = 1;
+
+            check = check->nextHoriz;
         }
         else if (input == '7')
         {
             x = -1;
             y = -1;
+
+            check = check->prevHoriz;
+            check = check->prevVert;
         }
         else if (input == '8')
         {
             y = -1;
+
+            check = check->prevVert;
         }
         else if (input == '9')
         {
             x = 1;
             y = -1;
+
+            check = check->nextHoriz;
+            check = check->prevVert;
         }
         else if (input == 'e')
         {
@@ -156,30 +178,25 @@ void Game::update(char input)
             playerInteract(nodePtr->below);
 
             playerInteract(nodePtr->nextVert);
-            playerInteract(nodePtr->nextVert);
+            playerInteract(nodePtr->prevVert);
 
             playerInteract(nodePtr->nextHoriz);
             playerInteract(nodePtr->prevHoriz);
         }
         
-        check->move(x, y);
+        //check->move(x, y);
 
-        if (check->below->isSolid())
+        if (check->isSolid())
         {
-            m = new Message("Walked into something");
-
-            messages->addMessage(m);
+            messages->addMessage(new Message("Walked into something"));
         }
-        else if(!check->below)
+        else if(!check)
         {
-            m = new Message("Out of bounds");
-
-            messages->addMessage(m);
+            messages->addMessage(new Message("Out of bounds"));
         }
         else
         {
             player->move(x, y);
-            std::cout<< "Moved" <<std::endl;
         }
 
         map->resetEnvironment();
@@ -198,20 +215,13 @@ void Game::playerInteract(Object* obj)
 {
     if (obj)
     {
-        Object* top = obj->above->above;
-        
         try
         {
-            if (top)
-            {
-                top->interact();  
-            }
+            obj->interact();
         }
         catch(std::string s)
         {
-            Message* m = new Message(s);
-
-            messages->addMessage(m);
+            messages->addMessage(new Message(s));
         }
     }
 }

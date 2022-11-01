@@ -1,5 +1,7 @@
 #include "Object.h"
 
+#include <iostream>
+
 Object::Object(int x, int y) : xPos(x), yPos(y)
 {
     icon = '?';
@@ -89,7 +91,7 @@ void Object::setPrev(Object* obj, bool dim)
 }
 
 void Object::updateLight(char direction, int intensity)
-{
+{    
     if (intensity == 1 || solid)
     {
         lit = true;
@@ -100,29 +102,47 @@ void Object::updateLight(char direction, int intensity)
 
         if (direction == 'u')
         {
-            prevHoriz->updateLight(direction, 1);
-            nextHoriz->updateLight(direction, 1);
-            prevVert->updateLight(direction, intensity-1);
+            if (prevHoriz)
+                prevHoriz->updateLight(direction, 1);
+
+            if (nextHoriz)
+                nextHoriz->updateLight(direction, 1);
+
+            if (prevVert)
+                prevVert->updateLight(direction, intensity-1);
         }
         else if (direction == 'd')
         {
-            prevHoriz->updateLight(direction, 1);
-            nextHoriz->updateLight(direction, 1);
-            nextVert->updateLight(direction, intensity-1);
+            if (prevHoriz)
+                prevHoriz->updateLight(direction, 1);
 
+            if (nextHoriz)
+                nextHoriz->updateLight(direction, 1);
+
+            if (nextVert)
+                nextVert->updateLight(direction, intensity-1);
         }
         else if (direction == 'l')
         {
-            prevVert->updateLight(direction, 1);
-            nextVert->updateLight(direction, 1);
-            prevHoriz->updateLight(direction, intensity-1);
+            if (prevVert)
+                prevVert->updateLight(direction, 1);
 
+            if (nextVert)
+                nextVert->updateLight(direction, 1);
+
+            if (prevHoriz)
+                prevHoriz->updateLight(direction, intensity-1);
         }
         else if (direction == 'r')
         {
-            prevVert->updateLight(direction, 1);
-            nextVert->updateLight(direction, 1);
-            prevHoriz->updateLight(direction, intensity-1);
+            if (prevVert)
+                prevVert->updateLight(direction, 1);
+
+            if (nextVert)
+                nextVert->updateLight(direction, 1);
+
+            if (nextHoriz)
+                nextHoriz->updateLight(direction, intensity-1);
         }
     }
 }

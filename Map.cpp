@@ -3,6 +3,8 @@
 
 Map::Map(int w, int h) : width(w), height(h)
 {
+    lights = new ObjectList(false);
+    
     rows = new ObjectList*[height];
     columns = new ObjectList*[width];
 
@@ -66,6 +68,7 @@ void Map::resetEnvironment()
 {
     for (int i = 0; i < height; i++)
     {
+        int k = 0;
         Object* nodePtr = rows[i]->getHead();
         
         while (nodePtr)

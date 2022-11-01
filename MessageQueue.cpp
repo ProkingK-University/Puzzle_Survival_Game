@@ -42,17 +42,17 @@ std::string MessageQueue::print()
 
             current = timeout;
         }
-        else
+
+        Message* nodePtr = head;
+
+        while (nodePtr)
         {
-            Message* nodePtr = head;
+            s += nodePtr->getText() + '\n';
 
-            while (nodePtr)
-            {
-                s += nodePtr->getText() + '\n';
-            }
-
-            current--;
+            nodePtr = nodePtr->next; 
         }
+
+        current--;
     }
     
     return s;
