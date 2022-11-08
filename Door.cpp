@@ -24,7 +24,7 @@ void Door::interact()
         open = false;
         solid = true;
 
-        std::string s = "You closed the door";
+        std::string s = "You closed a door";
         throw s;
     }
     else
@@ -33,7 +33,7 @@ void Door::interact()
         open = true;
         solid = false;
 
-        std::string s = "You opened the door";
+        std::string s = "You opened a door";
         throw s;
     }
 }

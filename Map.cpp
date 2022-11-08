@@ -68,7 +68,6 @@ void Map::resetEnvironment()
 {
     for (int i = 0; i < height; i++)
     {
-        int k = 0;
         Object* nodePtr = rows[i]->getHead();
         
         while (nodePtr)
@@ -94,44 +93,20 @@ void Map::updateEnvironment()
 
 Map::~Map()
 {
-    Object* head = NULL;
-    Object* nodePtr = NULL;
-    
     for (int i = 0; i < height; i++)
     {
-        if (rows[i]->getHead())
+        Object* nextPtr = NULL;
+        Object* nodePtr = rows[i]->getHead();
+
+        while (nodePtr)
         {
-            head = rows[i]->getHead();
-            nodePtr = rows[i]->getHead();
-
-            while (nodePtr)
-            {
-                head = head->getNext(true);
-                delete nodePtr;
-                nodePtr = head;
-            }
-
-            rows = NULL;
+            nextPtr = nodePtr->getNext(false);
+            delete nodePtr;
+            nodePtr = nextPtr;
         }
+
+        rows[i] = NULL;
     }
 
-    for (int i = 0; i < width; i++)
-    {
-        if (columns[i]->getHead())
-        {
-            head = columns[i]->getHead();
-            nodePtr = columns[i]->getHead();
-
-            while (nodePtr)
-            {
-                head = head->getNext(true);
-                delete nodePtr;
-                nodePtr = head;
-            }
-
-            columns = NULL;
-        }
-    }
-
-    delete head;
+    rows = NULL;
 }

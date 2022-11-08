@@ -5,7 +5,7 @@
 ObjectList::ObjectList(bool dim) : dimension(dim)
 {
     head = NULL;
-    current = NULL;
+    current = head;
 }
 
 void ObjectList::reset()
@@ -20,6 +20,7 @@ void ObjectList::add(Object* obj)
         if (!head)
         {
             head = obj;
+            current = head;
         }
         else
         {
@@ -42,6 +43,7 @@ void ObjectList::add(Object* obj)
                 obj->setNext(head, dimension);
                 head->setPrev(obj, dimension);
                 head = obj;
+                current = head;
             }
             else
             {
@@ -93,7 +95,7 @@ std::string ObjectList::debug()
         std::string top = "Y";
         std::stringstream ss;
 
-        s = "Forward\n";
+        s = "Forward:\n";
 
         Object* nodePtr = head;
 
@@ -114,7 +116,7 @@ std::string ObjectList::debug()
             if (nodePtr->above)
                 top = 'N';
             
-            s +=  "<" + icon + ">" + "at (" + x + ',' + y + ") Top: " + top + '\n';
+            s +=  "<" + icon + ">" + " at (" + x + ',' + y + ") Top:" + top + '\n';
 
             if (!nodePtr->getNext(dimension))
                 break;
@@ -122,7 +124,7 @@ std::string ObjectList::debug()
                 nodePtr = nodePtr->getNext(dimension);
         }
         
-        s += "Back\n";
+        s += "Back:\n";
 
         while (nodePtr)
         {
@@ -141,7 +143,7 @@ std::string ObjectList::debug()
             if (nodePtr->above)
                 top = 'N';
             
-            s += "<" + icon + ">" + "at (" + x + ',' + y + ") Top: " + top + '\n';
+            s += "<" + icon + ">" + " at (" + x + ',' + y + ") Top:" + top + '\n';
 
             nodePtr = nodePtr->getPrev(dimension);
         }

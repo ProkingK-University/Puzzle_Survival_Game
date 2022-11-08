@@ -9,8 +9,8 @@ Lamp::Lamp(int x, int y) : Object(x, y)
     
 void Lamp::update()
 {    
-    below->updateLight('u', 20);
-    below->updateLight('d', 20);
-    below->updateLight('l', 20);
-    below->updateLight('r', 20);
+    below->updateLight('u', 21);
+    below->updateLight('d', 21);
+    below->updateLight('l', 21);
+    below->updateLight('r', 21);
 }

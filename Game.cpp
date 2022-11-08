@@ -204,7 +204,7 @@ void Game::update(char input)
 
         if (player->below == exit)
         {
-            std::string s = "You reached the exit";
+            std::string s = "You reached the exit!";
 
             throw s;
         }

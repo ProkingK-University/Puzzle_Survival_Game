@@ -31,8 +31,6 @@ void basicTest()
 	list2.add(new Wall(1, 0));
 	list2.add(new Floor(7, 8));
 
-	std::cout<< "Added All" <<std::endl;
-
 	cout<<list2.debug()<<endl<<endl;
 
 	cout<<"List 1 iteration"<<endl;
@@ -44,25 +42,25 @@ void basicTest()
 
 }
 
-void test()
+int main()
 {
 //Map without player
 
-	/*const int w = 5;
+	const int w = 5;
 	const int h = 5;
 	string array =
 	"#####"
 	"#...#"
 	"#.#.#"
 	"###.#"
-	"#####";*/
+	"#####";
 
 //Map with player
 //When testing, the player should always
 //appear at the top. So, the player should
 //always be visible, even on walls for Part 1
-
-	/*const int w = 5;
+/*
+	const int w = 5;
 	const int h = 5;
 	string array =
 	"#####"
@@ -70,9 +68,9 @@ void test()
 	"#&#.#"
 	"###.#"
 	"#####";
+*/
 
-
-	//basicTest();
+	/*basicTest();
 
 
 	cout<<"Starting game"<<endl;
@@ -105,31 +103,6 @@ void test()
 	cout<<endl<<mess<<endl;
 }
 
-int main()
-{
-	/*Object* o1 = new Object(0,0);
-	Floor* o2 = new Floor(1,0);
-	Wall* o3 = new Wall(2,0);
-
-	std::cout<< o1->getIcon() <<std::endl;
-	std::cout<< o2->getIcon() <<std::endl;
-	std::cout<< o3->getIcon() <<std::endl;
-
-	ObjectList list(0);
-
-	list.add(o1);
-	list.add(o2);
-	list.add(o3);
-
-	std::cout<< list.print() <<std::endl;
-
-	std::cout<< list.debug() <<std::endl;
-
-	//basicTest();
-
-	test();
-}*/
-
 //Expected output, Part 1 (without character)
 /*
 List 1 debug
@@ -152,8 +125,8 @@ Back:
 List 2 debug
 Forward:
 <#> at (1,0) Top:Y
-<.> at (3,1) Top:Y
 <#> at (10,1) Top:Y
+<.> at (3,1) Top:Y
 <?> at (4,5) Top:Y
 <.> at (7,8) Top:Y
 <.> at (0,9) Top:Y
@@ -161,8 +134,8 @@ Back:
 <.> at (0,9) Top:Y
 <.> at (7,8) Top:Y
 <?> at (4,5) Top:Y
-<#> at (10,1) Top:Y
 <.> at (3,1) Top:Y
+<#> at (10,1) Top:Y
 <#> at (1,0) Top:Y
 
 
